@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 
 import '@/assets/icons/index'
+import '@/plugins/mint-ui'
+import '@/plugins/common'
 
 Vue.config.productionTip = false
 
