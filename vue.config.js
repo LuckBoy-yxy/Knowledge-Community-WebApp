@@ -1,10 +1,7 @@
-const { defineConfig } = require('@vue/cli-service')
 const path = require('path')
-
 const resolve = (dir) => path.join(__dirname, dir)
 
-module.exports = defineConfig({
-  transpileDependencies: true,
+module.exports = {
   chainWebpack: (config) => {
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()
@@ -22,9 +19,12 @@ module.exports = defineConfig({
       .test(/\.(png|jpe?g|gif|webp|svg)(\?.*)?$/)
       .exclude.add(resolve('./src/assets/icons'))
   }
-})
+}
 
-// module.exports = {
+// const { defineConfig } = require('@vue/cli-service')
+
+// module.exports = defineConfig({
+//   transpileDependencies: true,
 //   chainWebpack: (config) => {
 //     const svgRule = config.module.rule('svg')
 //     svgRule.uses.clear()
@@ -42,4 +42,4 @@ module.exports = defineConfig({
 //       .test(/\.(png|jpe?g|gif|webp|svg)(\?.*)?$/)
 //       .exclude.add(resolve('./src/assets/icons'))
 //   }
-// }
+// })
