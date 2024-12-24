@@ -18,6 +18,13 @@ module.exports = {
       .rule('images')
       .test(/\.(png|jpe?g|gif|webp|svg)(\?.*)?$/)
       .exclude.add(resolve('./src/assets/icons'))
+  },
+  css: {
+    loaderOptions: {
+      sass: {
+        prependData: "@import '@/assets/styles/variables.scss';"
+      }
+    }
   }
 }
 

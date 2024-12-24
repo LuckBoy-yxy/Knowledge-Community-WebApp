@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import 'normalize.css'
+
 import '@/assets/icons/index'
 import '@/plugins/mint-ui'
 import '@/plugins/common'
