@@ -3,19 +3,27 @@
     <slot name="h-left"></slot>
 
     <div class="search-block">
-      <i class="mintui mintui-search" @click.stop="onSearch"></i>
+      <i class="mintui mintui-search"></i>
       <input
         type="text"
         class="in"
         :placeholder="placeholderText"
         v-model="searchText"
       >
-      <span
-        class="clearText"
-        v-show="searchText"
-        @click.stop="onClear"
-      >清空</span>
+      <span @click.stop="onClear">
+        <SvgIcon
+          v-if="searchText"
+          icon="close"
+          className="close"
+        />
+      </span>
     </div>
+
+    <div
+      class="searchText"
+      v-show="searchText"
+      @click.stop="onSearch"
+    >确定</div>
 
     <slot name="h-right"></slot>
   </div>

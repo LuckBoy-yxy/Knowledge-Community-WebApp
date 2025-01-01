@@ -31,15 +31,18 @@
     color: #ccc;
   }
 }
-.clearText {
+.searchText {
   display: inline-block;
   font-size: 28px;
   white-space: nowrap;
   color: #666;
-  margin-left: 10px;
+  margin-left: 15px;
   color: $primary-color;
 }
 
 .svg-icon-close {
+  padding-top: 10px;
+  width: 30px;
+  height: 30px;
   color: #b2b2b2;
 }
