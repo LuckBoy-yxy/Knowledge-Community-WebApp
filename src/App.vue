@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Search />
+    <Layout />
   </div>
 </template>
 

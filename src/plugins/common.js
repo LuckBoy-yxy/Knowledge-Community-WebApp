@@ -3,7 +3,8 @@ import Vue from 'vue'
 
 // Vue.component('my-header', Header)
 
-const importFn = require.context('@/components', true, /index.vue$/)
+// const importFn = require.context('@/components', true, /index.vue$/)
+const importFn = require.context('@/components', true, /.vue$/)
 
 importFn.keys().forEach(key => {
   const component = importFn(key).default

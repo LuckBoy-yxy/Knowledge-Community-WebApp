@@ -12,7 +12,7 @@
       >
       <span @click.stop="onClear">
         <SvgIcon
-          v-if="searchText"
+          v-show="searchText"
           icon="close"
           className="close"
         />
@@ -23,7 +23,7 @@
       class="searchText"
       v-show="searchText"
       @click.stop="onSearch"
-    >确定</div>
+    >搜索</div>
 
     <slot name="h-right"></slot>
   </div>
