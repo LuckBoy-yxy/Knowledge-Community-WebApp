@@ -1,13 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import { Button, Cell } from 'mint-ui'
-
 Vue.use(VueRouter)
-Vue.component(Button.name, Button)
-Vue.component(Cell.name, Cell)
 
-const routes = []
+const Home = () => import('@/views/Home')
+const Catalog = () => import('@/views/Home/catalog.vue')
+
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: Home,
+    children: [
+      {
+        path: '/index/:catalog',
+        name: 'catalog',
+        component: Catalog,
+        props: true
+      }
+    ]
+  }
+]
 
 const router = new VueRouter({
   routes

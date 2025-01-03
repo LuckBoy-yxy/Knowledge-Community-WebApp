@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <Search />
-    <Layout />
+    <RouterView />
   </div>
 </template>
 

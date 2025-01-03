@@ -1,13 +1,16 @@
 <template>
   <div>
-    <slot />
-    <Footer />
+    catalog page
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Layout'
+  name: 'Catalog',
+  props: ['catalog'],
+  mounted () {
+    console.log(this.catalog)
+  }
 }
 </script>
 
