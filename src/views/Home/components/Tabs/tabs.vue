@@ -20,7 +20,7 @@ export default {
   data () {
     return {
       tabs: [
-        { name: '首页', path: '/' },
+        { name: '首页', path: '/index' },
         { name: '提问', path: '/index/ask' },
         { name: '建议', path: '/index/advise' },
         { name: '分享', path: '/index/share' },

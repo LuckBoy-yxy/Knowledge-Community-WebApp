@@ -8,10 +8,17 @@ const Catalog = () => import('@/views/Home/catalog.vue')
 
 const routes = [
   {
-    path: '/',
+    path: '',
     name: 'home',
     component: Home,
+    redirect: '/index',
     children: [
+      {
+        path: '/index',
+        name: 'catalog',
+        component: Catalog,
+        props: true
+      },
       {
         path: '/index/:catalog',
         name: 'catalog',

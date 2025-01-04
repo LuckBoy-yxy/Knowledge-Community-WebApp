@@ -20,7 +20,7 @@ export default {
   data () {
     return {
       tabs: [
-        { name: '首页', icon: 'name', path: '/' },
+        { name: '首页', icon: 'name', path: '/index' },
         { name: '消息', icon: 'msg', path: '/msg' },
         { name: '热门', icon: 'type', path: '/category' },
         { name: '我的', icon: 'person', path: '/center' }

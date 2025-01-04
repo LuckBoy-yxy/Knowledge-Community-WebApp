@@ -44,7 +44,7 @@ class HttpRequest {
       publicConfig.publicPath.forEach(path => {
         isPublic = path.test(config.url) || isPublic
       })
-      const token = store.state.userInfo.token
+      const token = store.state.user.userInfo.token
       if (token && !isPublic) {
         config.headers = {
           Authorization: 'Bearer ' + store.state.userInfo.token
