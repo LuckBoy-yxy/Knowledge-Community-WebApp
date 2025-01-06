@@ -3,6 +3,7 @@
     <Header
       :title="pageData.title || '测试发帖'"
       :hasBack="true"
+      :zIndex="1000"
     />
 
     <div class="wrapper">
@@ -104,10 +105,16 @@
       >没有更多评论了, 亲</div>
     </div>
 
-    <div class="detail-bottom">
+    <div class="detail-bottom" :class="{ fixed: isFocus }">
       <div class="bottom-input-wrap">
         <SvgIcon icon="advice" />
-        <input type="text" class="input" placeholder="书写评论..." />
+        <input
+          type="text"
+          class="input"
+          placeholder="书写评论..."
+          @focus="focus"
+          @blur="blur"
+        />
       </div>
 
       <ul class="bottom-right">
@@ -159,7 +166,8 @@ export default {
       },
       showText: true,
       loading: false,
-      isEnd: false
+      isEnd: false,
+      isFocus: false
     }
   },
   mounted () {
@@ -201,6 +209,12 @@ export default {
       if (this.isEnd) return
       this.loading = true
       this._getComments()
+    },
+    focus () {
+      this.isFocus = true
+    },
+    blur () {
+      this.isFocus = false
     }
   }
 }

@@ -1,3 +1,5 @@
+@import "@/assets/styles/mixin.scss";
+
 li {
   list-style: none;
 }
@@ -71,19 +73,24 @@ p {
 }
 
 .detail-bottom {
-  height: $header-height;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  z-index: 10;
-  border-top: 1px solid #f6f6f6;
-  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+  width: 100%;
+  height: $header-height;
+  border-top: 1px solid #f6f6f6;
+  background-color: #fff;
   box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
-
+  @include resH-to(big-screens) {
+    padding-bottom: 28px;
+  }
+  &.fixed {
+    padding-bottom: 0;
+  }
   .bottom-input-wrap {
     background-color: #f3f3f3;
     flex: 1;
