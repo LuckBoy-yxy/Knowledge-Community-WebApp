@@ -122,6 +122,16 @@ export default {
       document.documentElement.clientHeight -
       this.$refs.wrapper.getBoundingClientRect().top -
       this.distance
+  },
+  watch: {
+    distance () {
+      this.$nextTick(() => {
+        this.wrapperHeight =
+        document.documentElement.clientHeight -
+        this.$refs.wrapper.getBoundingClientRect().top -
+        this.distance
+      })
+    }
   }
 }
 </script>

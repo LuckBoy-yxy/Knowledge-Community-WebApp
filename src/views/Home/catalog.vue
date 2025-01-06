@@ -1,16 +1,17 @@
 <template>
   <div>
     <Scroll
-      :distance="56"
+      :distance="footerHeight"
       :isEnd="isEnd"
       @on-loadTop="refreshLists"
       @on-loadBottom="loadLists"
     >
       <ul>
-        <li
+        <ListItem
           v-for="item in lists"
           :key="item._id"
-        >{{ item }}</li>
+          :item="item"
+        />
       </ul>
     </Scroll>
   </div>
@@ -27,38 +28,93 @@ export default {
       page: 1,
       pageSize: 10,
       isEnd: false,
-      lists: []
+      lists: [],
+      isRepeat: false,
+      handel: null,
+      footerHeight: 0
     }
   },
   mounted () {
+    this.footerHeight = document.getElementsByClassName('layout-footer')[0].offsetHeight
     this._getList()
   },
   methods: {
-    refreshLists (end) {
+    init () {
+      if (typeof this.handel === 'function') {
+        this.handel()
+      }
       this.page = 1
-      this._getList(end)
+      this.isEnd = false
+      this.isRepeat = false
+      this.lists = []
+      this._getList()
+    },
+    refreshLists (end) {
+      this.handel = end
+      this.init()
     },
     loadLists (end) {
       this.page++
-      this._getList(end)
+      this.isEnd = false
+      this.handel = end
+      this._getList()
     },
-    _getList (fn) {
+    _getList () {
+      if (this.isRepeat) return
+      if (this.isEnd) return
+
+      this.isRepeat = true
       getList({
         page: this.page,
         pageSize: this.pageSize,
-        catalog: this.catalog
+        catalog: this.catalog,
+        sort: 'created'
       }).then(res => {
         if (res.code === 200) {
-          console.log(res)
-          this.lists = res.data
+          // console.log(res)
+          if (res.data.length < this.pageSize) {
+            this.isEnd = true
+            if (res.data.length) {
+              this.lists.push(...res.data)
+            }
+          } else {
+            this.lists.push(...res.data)
+          }
         }
-        if (fn) fn()
+        if (typeof this.handel === 'function') this.handel()
+        this.isRepeat = false
+      }).catch(err => {
+        this.isRepeat = false
+        if (err) {
+          this.$Toast(err.message)
+        }
       })
+    }
+  },
+  watch: {
+    catalog (newVal, oldVal) {
+      this.catalog = newVal
+      this.init()
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
+ul {
+  padding: 0;
+  margin: 0;
+  background-color: #f3f6f8;
+}
+.add-post {
+  position: fixed;
+  bottom: 120px;
+  right: 10px;
+}
+.info {
+  color: #999;
+  font-size: 24px;
+  text-align: center;
+  padding: 30px;
+}
 </style>
