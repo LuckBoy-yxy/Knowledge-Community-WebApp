@@ -6,7 +6,7 @@ import store from '@/store'
 // 获取帖子评论数据接口
 export const getComments = params => {
   let headers = {}
-  const { token } = store.state.userInfo
+  const token = store.state.user.userInfo.token
   if (token) {
     headers = {
       headers: {

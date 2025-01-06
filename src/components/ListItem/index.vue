@@ -1,5 +1,5 @@
 <template>
-  <div class="list-box">
+  <div class="list-box" @click="showDetail(item._id)">
     <div class="list-head">
       <div class="title">
         <span
@@ -10,9 +10,11 @@
       </div>
 
       <div class="author">
-        <img class="head" :src="item.uid.pic || '/img/bear-200-200.jpg'" />
-        <div class="name">{{ item.uid.name || '未知用户' }}&nbsp;</div>
-        <i class="vip" v-show="item.uid.isVip !== '0'">VIP {{ item.uid.isVip }}</i>
+        <div class="inline-block" @click.stop="showUser(item.uid._id)">
+          <img class="head" :src="item.uid.pic || '/img/bear-200-200.jpg'" />
+          <div class="name">{{ item.uid.name || '未知用户' }}&nbsp;</div>
+          <i class="vip" v-show="item.uid.isVip !== '0'">VIP {{ item.uid.isVip }}</i>
+        </div>
       </div>
     </div>
 
@@ -49,6 +51,14 @@ export default {
   filters: {
     catalogFilter (val) {
       return CATALOG_TYPE[val]
+    }
+  },
+  methods: {
+    showDetail (id) {
+      this.$emit('on-show-detail', id)
+    },
+    showUser (id) {
+      this.$emit('on-show-user', id)
     }
   }
 }

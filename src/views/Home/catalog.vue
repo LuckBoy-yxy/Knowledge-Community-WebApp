@@ -11,6 +11,8 @@
           v-for="item in lists"
           :key="item._id"
           :item="item"
+          @on-show-detail="goDetail"
+          @on-show-user="goUser"
         />
       </ul>
     </Scroll>
@@ -89,6 +91,16 @@ export default {
           this.$Toast(err.message)
         }
       })
+    },
+    goDetail (tid) {
+      console.log(tid)
+      this.$router.push({
+        name: 'detail',
+        params: { tid }
+      })
+    },
+    goUser (id) {
+      console.log(id)
     }
   },
   watch: {

@@ -43,7 +43,7 @@ export const addPost = postData => {
 // 获取帖子详情数据接口
 export const getDetail = tid => {
   let headers = {}
-  const token = store.state.userInfo.token
+  const token = store.state.user.userInfo.token
   if (token) {
     headers = {
       headers: {

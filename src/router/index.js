@@ -5,6 +5,7 @@ Vue.use(VueRouter)
 
 const Home = () => import('@/views/Home')
 const Catalog = () => import('@/views/Home/catalog.vue')
+const Detail = () => import('@/views/Detail')
 
 const routes = [
   {
@@ -26,6 +27,12 @@ const routes = [
         props: true
       }
     ]
+  },
+  {
+    path: '/detail/:tid',
+    name: 'detail',
+    component: Detail,
+    props: true
   }
 ]
 
