@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="tab">
+    <ul class="tab" ref="tab">
       <RouterLink
         class="item"
         v-for="(tab, index) in tabs"
@@ -27,6 +27,10 @@ export default {
         { name: '讨论', path: '/index/discuss' }
       ]
     }
+  },
+  mounted () {
+    const el = this.$refs.tab
+    window.forbidScroll(el)
   }
 }
 </script>

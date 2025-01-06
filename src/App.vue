@@ -4,6 +4,17 @@
   </div>
 </template>
 
+<script>
+import { forbidScroll } from '@/utils/forbidScroll'
+
+export default {
+  name: 'App',
+  mounted () {
+    window.forbidScroll = forbidScroll
+  }
+}
+</script>
+
 <style lang="scss">
 .inline-block {
   display: inline-block;

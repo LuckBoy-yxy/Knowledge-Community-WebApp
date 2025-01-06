@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="layout-footer">
+    <ul class="layout-footer" ref="footer">
       <RouterLink
         v-for="(tab, index) in tabs"
         :key="'tab' + index"
@@ -26,6 +26,10 @@ export default {
         { name: '我的', icon: 'person', path: '/center' }
       ]
     }
+  },
+  mounted () {
+    const el = this.$refs.footer
+    window.forbidScroll(el)
   }
 }
 </script>

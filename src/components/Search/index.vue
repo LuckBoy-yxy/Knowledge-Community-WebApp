@@ -1,5 +1,5 @@
 <template>
-  <div class="search-wrap">
+  <div class="search-wrap" ref="search">
     <slot name="h-left"></slot>
 
     <div class="search-block">
@@ -42,6 +42,10 @@ export default {
     return {
       searchText: ''
     }
+  },
+  mounted () {
+    const el = this.$refs.search
+    window.forbidScroll(el)
   },
   methods: {
     onSearch () {
