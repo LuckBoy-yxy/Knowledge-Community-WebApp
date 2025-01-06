@@ -80,8 +80,9 @@ export default {
   width: 100%;
   height: $header-height;
   line-height: $header-height;
-  font-size: 16px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+  font-size: 32px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  background-color: #fff;
   .header-content {
     overflow: hidden;
     margin: 0 auto;
@@ -95,7 +96,7 @@ export default {
   .header-right {
     position: absolute;
     top: 0;
-    padding: 0 10px;
+    padding: 0 20px;
   }
   .header-left {
     left: 0;

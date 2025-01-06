@@ -1,8 +1,92 @@
 <template>
   <div>
-    帖子详情页面
-    {{ pageData }}
-    {{ comments }}
+    <Header
+      :title="pageData.title || '测试发帖'"
+      :hasBack="true"
+    />
+
+    <div class="wrapper">
+      <div class="detail-head">{{ pageData.title }}</div>
+
+      <div class="detail-info">
+        <div class="detail-info-head">
+          <div class="avatar">
+            <img :src="pageData.user && pageData.user.pic" />
+          </div>
+
+          <div class="cont">
+            <p class="name">{{ pageData.user && pageData.user.name }}</p>
+            <p class="time">{{ pageData.created | moment }}</p>
+          </div>
+        </div>
+
+        <div class="detail-info-body" v-richtext="pageData.content"></div>
+        <div class="detail-info-foot">{{ pageData.reads }} 阅读</div>
+      </div>
+    </div>
+
+    <div class="comments">
+      <div class="title">评论</div>
+      <ul class="comments-lists">
+        <li
+          class="item"
+          v-for="item in comments"
+          :key="item._id"
+        >
+          <div class="detail-info-head">
+            <div class="user">
+              <div class="avatar">
+                <img :src="item.cuid && item.cuid.pic" />
+              </div>
+
+              <div class="cont">
+                <div class="name">{{ item.cuid && item.cuid.name }}</div>
+                <div class="time">{{ item.created | momemt }}</div>
+              </div>
+            </div>
+
+            <div class="hands">
+              <SvgIcon icon="zan" />
+              <span>{{ item.hands }}</span>
+            </div>
+          </div>
+
+          <div class="detail-body" v-richtext="item.content"></div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="detail-bottom">
+      <div class="bottom-input-wrap">
+        <SvgIcon icon="advice" />
+        <input type="text" class="input" placeholder="书写评论..." />
+      </div>
+
+      <ul class="bottom-right">
+        <li :class="{'row': !showText}">
+          <svg-icon icon="bianji"></svg-icon>
+          <p>
+            <span v-show="showText">评论</span>
+            {{ pageData.answer }}
+          </p>
+        </li>
+        <li :class="{'row': !showText}">
+          <svg-icon icon="shoucang"></svg-icon>
+          <p>
+            <span v-show="showText">
+              {{ pageData.isFav ? '取消收藏' : '收藏' }}
+            </span>
+          </p>
+        </li>
+        <li :class="{'row': !showText}">
+          <svg-icon icon="zan"></svg-icon>
+          <p>
+            <span v-show="showText">赞</span>
+            {{ pageData.fav }}
+          </p>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -24,7 +108,8 @@ export default {
         content: '',
         code: '',
         sid: ''
-      }
+      },
+      showText: true
     }
   },
   mounted () {
@@ -57,5 +142,63 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "./detail.scss";
 
+.comments {
+  padding: 30px;
+  background: #fff;
+  .title {
+    font-weight: bold;
+    padding-bottom: 30px;
+  }
+  .item {
+    padding: 10px 0 28px 0;
+    color: $font-main-color;
+  }
+  .hands {
+    font-size: 28px;
+    padding-right: 12px;
+    color: #999;
+  }
+  .svg-icon {
+    font-size: px;
+    margin-right: 10px;
+  }
+  .info {
+    color: #999;
+    font-size: 24px;
+    text-align: center;
+  }
+  .detail-info-head {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    padding-bottom: 20px;
+    justify-content: space-between;
+    .user {
+      display: flex;
+    }
+    .avatar {
+      margin-right: 20px;
+      img {
+        width: 72px;
+        height: 72px;
+        border-radius: 100%;
+      }
+    }
+    .cont {
+      flex: 1;
+      .name {
+        font-size: 26px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+      .time {
+        color: #999;
+        font-size: 22px;
+      }
+    }
+  }
+}
 </style>
