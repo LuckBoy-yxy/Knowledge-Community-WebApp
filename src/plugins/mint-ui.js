@@ -5,7 +5,8 @@ import {
   Header,
   Loadmore,
   Spinner,
-  Toast
+  Toast,
+  InfiniteScroll
 } from 'mint-ui'
 
 Vue.component(Button.name, Button)
@@ -15,3 +16,4 @@ Vue.component(Loadmore.name, Loadmore)
 Vue.component(Spinner.name, Spinner)
 
 Vue.prototype.$Toast = Toast
+Vue.use(InfiniteScroll)

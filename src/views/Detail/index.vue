@@ -27,7 +27,12 @@
 
     <div class="comments">
       <div class="title">评论</div>
-      <ul class="comments-lists">
+      <ul
+        class="comments-lists"
+        v-infinite-scroll="loadMore"
+        infinite-scroll-disabled="loading"
+        infinite-scroll-distance="30"
+      >
         <li
           class="item"
           v-for="item in comments"
@@ -41,7 +46,7 @@
 
               <div class="cont">
                 <div class="name">{{ item.cuid && item.cuid.name }}</div>
-                <div class="time">{{ item.created | momemt }}</div>
+                <div class="time">{{ item.created | moment }}</div>
               </div>
             </div>
 
@@ -54,6 +59,49 @@
           <div class="detail-body" v-richtext="item.content"></div>
         </li>
       </ul>
+      <!-- <ul class="comments-lists">
+        <li
+          class="item"
+          v-for="item in comments"
+          :key="item._id"
+        >
+          <div class="detail-info-head">
+            <div class="user">
+              <div class="avatar">
+                <img :src="item.cuid && item.cuid.pic" />
+              </div>
+
+              <div class="cont">
+                <div class="name">{{ item.cuid && item.cuid.name }}</div>
+                <div class="time">{{ item.created | moment }}</div>
+              </div>
+            </div>
+
+            <div class="hands">
+              <SvgIcon icon="zan" />
+              <span>{{ item.hands }}</span>
+            </div>
+          </div>
+
+          <div class="detail-body" v-richtext="item.content"></div>
+        </li>
+      </ul> -->
+
+      <div
+        class="info"
+        v-if="comments.length === 0"
+      >暂无评论，赶紧来抢沙发吧!!!</div>
+
+      <div
+        class="loading"
+        v-if="loading"
+      >
+        <mt-spinner type="fading-circle"></mt-spinner>加载中...
+      </div>
+      <div
+        class="info"
+        v-if="isEnd && comments.length"
+      >没有更多评论了, 亲</div>
     </div>
 
     <div class="detail-bottom">
@@ -109,12 +157,14 @@ export default {
         code: '',
         sid: ''
       },
-      showText: true
+      showText: true,
+      loading: false,
+      isEnd: false
     }
   },
   mounted () {
     this._getDetail()
-    this._getComments()
+    // this._getComments()
   },
   methods: {
     _getDetail () {
@@ -133,9 +183,24 @@ export default {
       }).then(res => {
         console.log(res)
         if (res.code === 200) {
-          this.comments = res.data
+          if (res.data.length < this.pageSize) {
+            this.isEnd = true
+            if (res.data.length) {
+              this.comments.push(...res.data)
+            }
+          } else {
+            this.comments.push(...res.data)
+            this.page++
+          }
+          this.loading = false
         }
       })
+    },
+    loadMore () {
+      // this.page++
+      if (this.isEnd) return
+      this.loading = true
+      this._getComments()
     }
   }
 }
@@ -145,7 +210,7 @@ export default {
 @import "./detail.scss";
 
 .comments {
-  padding: 30px;
+  padding: 20px 30px $header-height 30px;
   background: #fff;
   .title {
     font-weight: bold;
@@ -200,5 +265,13 @@ export default {
       }
     }
   }
+}
+.loading {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  color: #999;
+  padding: 20px 0 40px 0;
 }
 </style>
